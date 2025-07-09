@@ -1,0 +1,177 @@
+loanApplication:
+  applicationId:
+    required: true
+    type: string
+    format: uuid
+  applicationDate:
+    required: true
+    type: date
+    mustBePastOrToday: true
+    withinPastYears: 2
+  productType:
+    required: true
+    type: string
+    enum: [HomeLoan, AutoLoan, PersonalLoan, BusinessLoan]
+  loanAmount:
+    required: true
+    type: number
+    min: 1000
+    maxField: propertyInfo.estimatedValue
+  loanPurpose:
+    required: true
+    type: string
+    enum: [Purchase, Refinance, Construction]
+  tenureMonths:
+    required: true
+    type: integer
+    min: 12
+    max: 360
+  interestRate:
+    required: true
+    type: number
+    min: 0.1
+    max: 100
+  repaymentType:
+    required: true
+    type: string
+    enum: [EMI, Bullet, StepUp]
+  channel:
+    required: false
+    type: string
+    enum: [Branch, Online, Agent]
+  branchCode:
+    required: false
+    type: string
+    length: 4
+  promoCode:
+    required: false
+    type: string
+    maxLength: 10
+
+  applicants:
+    type: array
+    minItems: 1
+    maxItems: 4
+    items:
+      applicantId:
+        required: true
+        type: string
+        format: uuid
+      role:
+        required: true
+        type: string
+        enum: [Primary]
+      personalInfo.firstName:
+        required: true
+        type: string
+        maxLength: 50
+      personalInfo.lastName:
+        required: true
+        type: string
+        maxLength: 50
+      personalInfo.dob:
+        required: true
+        type: date
+        mustBePast: true
+        minAge: 18
+      personalInfo.ssn:
+        required: true
+        type: string
+        pattern: '^\d{3}-\d{2}-\d{4}$'
+      contactInfo.email:
+        required: true
+        type: string
+        format: email
+      contactInfo.phoneMobile:
+        required: true
+        type: string
+        pattern: '^\+?[0-9]{10,15}$'
+      currentAddress.state:
+        required: true
+        type: string
+        length: 2
+      employmentInfo.employmentStatus:
+        required: true
+        type: string
+        enum: [Employed, Self-Employed, Unemployed, Retired]
+      employmentInfo.annualIncome:
+        required: true
+        type: number
+        min: 0
+      financials.netWorth:
+        required: true
+        type: number
+      creditInfo.creditScore:
+        required: true
+        type: integer
+        min: 300
+        max: 850
+      disclosures.agreedToTerms:
+        required: true
+        type: boolean
+        mustBeTrue: true
+
+  coApplicants:
+    type: array
+    maxItems: 3
+    items:
+      applicantId:
+        required: true
+        type: string
+        format: uuid
+      role:
+        required: true
+        type: string
+        enum: [Co-Applicant]
+      personalInfo.dob:
+        required: true
+        type: date
+        minAge: 18
+      annualIncome:
+        required: true
+        type: number
+        min: 0
+
+  propertyInfo.estimatedValue:
+    required: true
+    type: number
+    min: 10000
+  propertyInfo.propertyUsage:
+    required: true
+    type: string
+    enum: [PrimaryResidence, SecondaryResidence, Investment]
+
+  contractInfo.contractStartDate:
+    required: true
+    type: date
+    mustBeTodayOrFuture: true
+  contractInfo.contractEndDate:
+    required: true
+    type: date
+    mustBeAfterField: contractInfo.contractStartDate
+  contractInfo.contractTermMonths:
+    required: true
+    type: integer
+    min: 1
+
+  fees.totalFees:
+    required: true
+    type: number
+    mustEqualSumOf: [fees.originationFee, fees.processingFee, fees.insuranceFee]
+
+  disclosures.electronicConsent:
+    required: true
+    type: boolean
+    mustBeTrue: true
+
+crossFieldRules:
+  - rule: contractInfo.contractTermMonths == months_between(contractInfo.contractStartDate, contractInfo.contractEndDate)
+    description: "Contract term must match date difference"
+  - rule: loanAmount <= propertyInfo.estimatedValue
+    description: "Loan cannot exceed estimated value"
+  - rule: financials.netWorth == financials.totalAssets - financials.totalLiabilities
+    description: "Net worth must match"
+  - rule: applicants[0].personalInfo.dob must result in age ≥ 18
+    description: "Primary applicant must be adult"
+  - rule: tenureMonths ≤ contractInfo.contractTermMonths
+    description: "Tenure can't exceed contract term"

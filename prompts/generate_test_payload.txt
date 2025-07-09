@@ -1,0 +1,25 @@
+You are a senior test engineer.
+
+For each test case, generate:
+- JSON payload matching the JSON schema & validation rules, testing the case.
+- Short explanation of what it tests.
+
+**Return JSON array** like:
+[
+  {
+    "test_case": "description",
+    "payload": {...},
+    "explanation": "..."
+  }
+]
+
+No extra text.
+
+JSON Schema:
+{{schema}}
+
+Validation Rules:
+{{rules}}
+
+Test Cases:
+{{test_cases}}

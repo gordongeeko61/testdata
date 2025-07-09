@@ -1,0 +1,178 @@
+{
+    "loanApplication": {
+      "applicationId": "string",
+      "applicationDate": "date",
+      "productType": "string",
+      "loanAmount": "number",
+      "loanPurpose": "string",
+      "tenureMonths": "integer",
+      "interestRate": "number",
+      "repaymentType": "string",
+      "channel": "string",
+      "branchCode": "string",
+      "originatorId": "string",
+      "promoCode": "string",
+      "applicants": [
+        {
+          "applicantId": "string",
+          "role": "Primary",
+          "personalInfo": {
+            "firstName": "string",
+            "middleName": "string",
+            "lastName": "string",
+            "suffix": "string",
+            "dob": "date",
+            "ssn": "string",
+            "gender": "string",
+            "maritalStatus": "string",
+            "citizenship": "string"
+          },
+          "contactInfo": {
+            "email": "string",
+            "phoneMobile": "string",
+            "phoneHome": "string",
+            "phoneWork": "string",
+            "preferredContactMethod": "string"
+          },
+          "currentAddress": {
+            "street": "string",
+            "city": "string",
+            "state": "string",
+            "zipCode": "string",
+            "country": "string",
+            "residenceType": "string",
+            "sinceDate": "date"
+          },
+          "previousAddress": {
+            "street": "string",
+            "city": "string",
+            "state": "string",
+            "zipCode": "string",
+            "country": "string",
+            "residenceType": "string",
+            "sinceDate": "date"
+          },
+          "employmentInfo": {
+            "employmentStatus": "string",
+            "employerName": "string",
+            "jobTitle": "string",
+            "startDate": "date",
+            "endDate": "date",
+            "annualIncome": "number",
+            "payFrequency": "string"
+          },
+          "financials": {
+            "totalAssets": "number",
+            "totalLiabilities": "number",
+            "netWorth": "number",
+            "monthlyDebtObligations": "number"
+          },
+          "creditInfo": {
+            "creditScore": "integer",
+            "bureau": "string",
+            "creditHistoryLengthYears": "integer",
+            "numOpenAccounts": "integer",
+            "numDerogatoryMarks": "integer"
+          },
+          "kycInfo": {
+            "idType": "string",
+            "idNumber": "string",
+            "idIssueDate": "date",
+            "idExpiryDate": "date"
+          },
+          "disclosures": {
+            "isPoliticallyExposed": "boolean",
+            "hasBankruptcyHistory": "boolean",
+            "hasCriminalRecord": "boolean",
+            "agreedToTerms": "boolean"
+          }
+        }
+      ],
+      "coApplicants": [
+        {
+          "applicantId": "string",
+          "role": "Co-Applicant",
+          "personalInfo": {
+            "firstName": "string",
+            "lastName": "string",
+            "dob": "date",
+            "ssn": "string"
+          },
+          "contactInfo": {
+            "email": "string",
+            "phoneMobile": "string"
+          },
+          "relationshipToPrimary": "string",
+          "annualIncome": "number"
+        }
+      ],
+      "propertyInfo": {
+        "propertyType": "string",
+        "address": {
+          "street": "string",
+          "city": "string",
+          "state": "string",
+          "zipCode": "string",
+          "country": "string"
+        },
+        "estimatedValue": "number",
+        "purchasePrice": "number",
+        "yearBuilt": "integer",
+        "propertyUsage": "string"
+      },
+      "assets": [
+        {
+          "type": "string",
+          "description": "string",
+          "value": "number",
+          "ownerApplicantId": "string"
+        }
+      ],
+      "liabilities": [
+        {
+          "type": "string",
+          "description": "string",
+          "outstandingAmount": "number",
+          "monthlyPayment": "number",
+          "ownerApplicantId": "string"
+        }
+      ],
+      "collateral": {
+        "collateralType": "string",
+        "estimatedValue": "number",
+        "ownership": "string"
+      },
+      "fees": {
+        "originationFee": "number",
+        "processingFee": "number",
+        "insuranceFee": "number",
+        "totalFees": "number"
+      },
+      "underwriting": {
+        "decision": "string",
+        "approvedAmount": "number",
+        "approvedTenureMonths": "integer",
+        "approvalDate": "date",
+        "conditions": "string"
+      },
+      "documentChecklist": [
+        {
+          "documentType": "string",
+          "provided": "boolean",
+          "verified": "boolean"
+        }
+      ],
+      "disclosures": {
+        "electronicConsent": "boolean",
+        "privacyPolicyAcknowledged": "boolean",
+        "termsAndConditionsAccepted": "boolean"
+      },
+      "metadata": {
+        "createdBy": "string",
+        "createdTimestamp": "date-time",
+        "lastModifiedBy": "string",
+        "lastModifiedTimestamp": "date-time"
+      }
+    }
+  }
+  

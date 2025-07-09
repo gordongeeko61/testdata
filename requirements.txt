@@ -1,0 +1,7 @@
+streamlit
+openai
+pyyaml
+python-dotenv
+pydantic
+jsonschema
+pandas
