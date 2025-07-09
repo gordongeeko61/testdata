@@ -30,6 +30,12 @@ test_cases_text = st.text_area(
 results = []
 
 if st.button("🚀 Generate Test Data"):
+    # --- Input Validation ---
+    if not test_cases_text or len(test_cases_text.strip()) < 10:
+        st.error("❌ Please enter at least 10 characters for your test cases.")
+        st.stop()
+    # --- End Input Validation ---
+
     test_cases = [{"description": line.strip()} for line in test_cases_text.strip().split("\n") if line.strip()]
 
     # Build strong prompt to force JSON output
@@ -57,7 +63,6 @@ if st.button("🚀 Generate Test Data"):
     if not raw_content:
         st.error("❌ Empty response from OpenAI.")
         st.stop()
-
 
     # Remove Markdown code fences if present
     if raw_content.startswith("```json"):
