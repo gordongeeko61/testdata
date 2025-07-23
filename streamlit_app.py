@@ -55,6 +55,7 @@ if st.button("🚀 Generate Test Data"):
                 ],
                 temperature=0.0
             )
+            st.write(response)
             raw_content = response.choices[0].message.content.strip() if response.choices else ""
         except Exception as e:
             st.error(f"❌ OpenAI API call failed: {str(e)}")
